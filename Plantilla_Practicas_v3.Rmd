@@ -218,3 +218,32 @@ ggsave("./results/Ejercicio5.pdf", plot = grafico3)
 ```
 
 Tenemos 4 variables, complemento, dosis, altura y error altura, siendo todas numericas menos la primera que es un factor con dos niveles OJ y VC.
+
+# Ejercicio 6
+
+```{r}
+load("data/iceRiver.RData")
+
+str(ice.river.df)
+
+grafico_rios <- ggplot(ice.river.df, aes(x = time)) +
+  geom_line(aes(y = flow.vat, color = "Primer Río")) +
+  geom_line(aes(y = flow.jok, color = "Segundo Río")) +
+  scale_color_manual(values = c("Primer Río" = "red", "Segundo Río" = "blue"))
+
+
+grafico_enriquecido <- grafico_rios +
+  labs(
+    title = "Caudal diario de ríos islandeses",
+    subtitle = "Comparativa entre dos ríos",
+    x = "Fecha",
+    y = "Caudal",
+    color = "Ríos"
+  ) +
+  theme_minimal()
+
+
+ggsave("./results/Ejercicio6.pdf", plot = grafico_enriquecido)
+```
+
+El dataset contiene 5 variables numéricas, siendo la última de ellas la fecha. Las demás son medidas de caudal de dos diferentes ríos y temperatura y precipitación en la zona.
