@@ -107,6 +107,51 @@ grafico_completo <- ggplot(ds, aes(x = Temp9am, y = Pressure9am, color = RainTod
 ggsave("./results/Ejercicio2.pdf", plot = grafico_completo, width = 8, height = 6)
 ```
 
-Si compilamos y comparamos el grafico en el que cambia la forma de los puntos y el del color de los puntos se ve claro que se nota mucho más la diferencia de colores al haber tantos puntos juntos.
+Si compilamos y comparamos el grafico en el que cambia la forma de los puntos y el del color de los puntos se ve claro que se nota mucho más la diferencia de colores al haber tantos puntos juntos. Por tanto vamos a gmodificar el de color y a guardarlo.
 
 # Ejercicio 3
+
+```{r}
+
+```
+
+# Ejercicio 4
+
+```{r}
+load("data/Ejercicio4_Data.Rdata")
+
+
+str(DatosEjer4)
+
+
+grafico_puntos <- ggplot(DatosEjer4, aes(x = Fecha, y = Ventas, color = Fabricante)) +
+  geom_point()
+
+
+
+grafico_lineas <- ggplot(DatosEjer4, aes(x = Fecha, y = Ventas, color = Fabricante)) +
+  geom_line() +
+  geom_point()
+
+
+
+grafico_tendencia <- ggplot(DatosEjer4, aes(x = Fecha, y = Ventas, color = Fabricante, linetype = Fabricante)) +
+  geom_line() +
+  geom_point()
+
+
+
+grafico_con_titulo <- grafico_tendencia +
+  labs(
+    title = "Ventas mensuales de diferentes compañías tecnológicas",
+    x = "Fecha",
+    y = "Ventas"
+  ) +
+  theme_minimal()
+
+
+
+ggsave("./results/Ejercicio4.pdf", plot = grafico_con_titulo)
+```
+
+Al examinar el dataset vemos que contiene 3 variables, una con la fecha, otra con el fabricante y otra con las ventas de ese día. En cuanto a si el gráfico es adecuado, sí que se diferencia la tendencia de los dos fabricantes, pero sería mucho más claro dividir el gráfico en dos y compararlos individualmente. Otra alternativa sería unir los puntos con líneas para que quede claro de que fabricante es cada punto.
