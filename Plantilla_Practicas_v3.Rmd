@@ -292,3 +292,43 @@ ggsave("./results/Ejercicio7.pdf", plot = grafico_modificado)
 ```
 
 El dataset es bastante grande y no resulta práctico explicar cada variable. Las variables utilizadas son el año (siendo un factor) y las temperaturas máximas y mínimas (numérico).
+
+# Ejercicio 8
+
+```{r}
+library(readr)
+
+url <- "http://assets.datacamp.com/blog_assets/chol.txt"
+chol_data <- read.table(url, header = TRUE)
+
+rango <- seq(155, 195, length.out = 21)
+
+
+grafico_chol <- ggplot(chol_data, aes(x = HEIGHT)) +
+  geom_histogram(
+    breaks = rango, 
+    fill = "blue", 
+    alpha = 0.5, 
+    color = "red"
+  ) +
+  geom_density(
+    aes(y = after_stat(density * n) * (195 - 155) / 20), 
+    color = "green", 
+    linewidth = 1
+  ) +
+  theme_minimal()
+grafico_chol_2 <- grafico_chol_3+
+  facet_grid(MORT ~ .) +
+  labs(
+    title = "Histograma de la variable Altura",
+    x = "Altura (cm)",
+    y = "Frecuencia"
+  ) 
+
+
+ggsave("./results/Ejercicio8.pdf", plot = grafico_chol_2)
+```
+
+El código consesite en la importación del dataset a partir de la url y la creación de los dos histogramas. Cabe destacar que en el primero se han hecho ajustes en el geom_density que no son necesarios para este gráfico, sino para que luego, al separarlo por la variable mort la curva verde se ajuste bien.
+
+En cuanto añ histograma en sí simplemente muestra la distribución de alturas de las personas vivas y muertas. La distribución de vivos está más desplazada a la derecha, lo que parece indicar un aumento de la altura media en nuevas generaciones.
