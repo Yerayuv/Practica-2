@@ -247,3 +247,48 @@ ggsave("./results/Ejercicio6.pdf", plot = grafico_enriquecido)
 ```
 
 El dataset contiene 5 variables numéricas, siendo la última de ellas la fecha. Las demás son medidas de caudal de dos diferentes ríos y temperatura y precipitación en la zona.
+
+# Ejercicio 7
+
+```{r}
+
+load("data/weatherAUS_distributions.RData")
+
+str(ds)
+
+
+
+grafico_boxplot <- ggplot(ds, aes(x = Year, y = MinTemp)) +
+  geom_boxplot() +
+  labs(
+    title = "Distribución de temperaturas mínimas por año",
+    x = "Año",
+    y = "Temperatura Min (°C)"
+  ) +
+  theme_minimal()
+
+
+
+grafico_violin <- ggplot(ds, aes(x = Year, y = MaxTemp, fill = Year)) +
+  geom_violin() +
+  labs(
+    title = "Distribución de temperaturas máximas por año",
+    x = "Año",
+    y = "Temperatura (°C)"
+  )
+
+
+
+grafico_modificado <- grafico_violin +
+  theme_minimal() +
+  theme(
+    legend.position = "none",
+    axis.text.x = element_text(angle = 45, hjust = 1)
+  )
+
+
+
+ggsave("./results/Ejercicio7.pdf", plot = grafico_modificado)
+```
+
+El dataset es bastante grande y no resulta práctico explicar cada variable. Las variables utilizadas son el año (siendo un factor) y las temperaturas máximas y mínimas (numérico).
