@@ -76,3 +76,37 @@ dir.create("./results", showWarnings = FALSE, recursive = TRUE)
 
 ggsave("./results/Ejercicio1.pdf", plot = grafico3)
 ```
+
+# Ejercicio 2
+
+```{r}
+
+grafico_base <- ggplot(ds, aes(x = Temp9am, y = Pressure9am)) +
+  geom_point()
+
+
+grafico_forma <- ggplot(ds, aes(x = Temp9am, y = Pressure9am, shape = RainToday)) +
+  geom_point()
+
+
+grafico_color <- ggplot(ds, aes(x = Temp9am, y = Pressure9am, color = RainToday)) +
+  geom_point()
+
+
+grafico_completo <- ggplot(ds, aes(x = Temp9am, y = Pressure9am, color = RainToday)) +
+  geom_point(alpha = 0.7) + 
+  labs(
+    title = "Relación entre Temperatura y Presión",
+    subtitle = "Presencia de lluvia a las 9:00 AM",
+    x = "Temperatura a las 9 AM",
+    y = "Presión a las 9 AM",
+    color = "Lluvia"
+  ) +
+  theme_minimal()
+
+ggsave("./results/Ejercicio2.pdf", plot = grafico_completo, width = 8, height = 6)
+```
+
+Si compilamos y comparamos el grafico en el que cambia la forma de los puntos y el del color de los puntos se ve claro que se nota mucho más la diferencia de colores al haber tantos puntos juntos.
+
+# Ejercicio 3
