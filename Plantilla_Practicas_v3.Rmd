@@ -3,12 +3,10 @@ title: "Practica 1"
 author: "Yeray Antón Juárez"
 date: "`r Sys.Date()`"
 output:
-  bookdown::pdf_document2:
+  pdf_document:
     toc: true
     toc_depth: 3
     number_sections: true
-    figure_caption: "Figura" # Referencias en castellano
-    table_caption: "Tabla"
   html_document:
     echo: true
     number_sections: true
@@ -18,10 +16,12 @@ output:
     echo: true
     number_sections: true
     toc: true
-  pdf_document:
+  bookdown::pdf_document2:
     toc: true
     toc_depth: 3
     number_sections: true
+    figure_caption: "Figura" # Referencias en castellano
+    table_caption: "Tabla"
   bookdown::html_document2:
     echo: true
     number_sections: true
@@ -77,6 +77,8 @@ dir.create("./results", showWarnings = FALSE, recursive = TRUE)
 ggsave("./results/Ejercicio1.pdf", plot = grafico3)
 ```
 
+El código se ha construido sin mucha complicación siguiendo las instrucciones. En cuanto al gráfico final es complicado de interpretar, pero por los valores de temperatura máxima alta parece haber una relación entre temperaturas altas y la no lluvia.
+
 # Ejercicio 2
 
 ```{r}
@@ -108,6 +110,8 @@ ggsave("./results/Ejercicio2.pdf", plot = grafico_completo, width = 8, height = 
 ```
 
 Si compilamos y comparamos el grafico en el que cambia la forma de los puntos y el del color de los puntos se ve claro que se nota mucho más la diferencia de colores al haber tantos puntos juntos. Por tanto vamos a gmodificar el de color y a guardarlo.
+
+En cuanto al gráfico final, resulta muycomplicado de interpretar.
 
 # Ejercicio 3
 
@@ -144,6 +148,8 @@ El dataset contiene 4 variables, la que te dice que especie es, la que denota un
 En cuanto a la distribución de los gráficos, la distribución en filas permite visualizar mejor las dos gráficas. Por otra parte, si interesara comparar la variable value según si se mide el largo o el ancho (probablemente no sea el caso) podría ser interesante el gráfico en columnas.
 
 La diferencia ahora es que jitter hacer que ya no todos los puntos estén en la misma línea, lo que puede facilitar el percibir la densidad de los datos en algunas ocasiones con mayor facilidad.
+
+Del último gráfico se puede extraer conclusiones de los valores estimados de las partes de las diferentes tipos de iris, pero hay tanta información en el gráfico y ninguna particularmente importante.
 
 # Ejercicio 4
 
@@ -186,6 +192,10 @@ ggsave("./results/Ejercicio4.pdf", plot = grafico_con_titulo)
 
 Al examinar el dataset vemos que contiene 3 variables, una con la fecha, otra con el fabricante y otra con las ventas de ese día. En cuanto a si el gráfico es adecuado, sí que se diferencia la tendencia de los dos fabricantes, pero sería mucho más claro dividir el gráfico en dos y compararlos individualmente. Otra alternativa sería unir los puntos con líneas para que quede claro de que fabricante es cada punto.
 
+De nuevo, el código no tiene complicación y simplemente se siguen las instrucciones.
+
+Del último gráfico se puede llegar a ver cierta tendencia a subir y bajar descoordinada entre ambas compañías (cuando sube uno baja el otro) sobre todo en los años más recientes, pero es algo muy precipitado para sacar conclusiones.
+
 # Ejercicio 5
 
 ```{r}
@@ -219,6 +229,10 @@ ggsave("./results/Ejercicio5.pdf", plot = grafico3)
 
 Tenemos 4 variables, complemento, dosis, altura y error altura, siendo todas numericas menos la primera que es un factor con dos niveles OJ y VC.
 
+La construcción del código es trivial hasta que nos pide replicar el grafico2, con lo cual tenemos que utilizar geom_line y geom_point para replicarlo.
+
+Del gráfico se puede sacar una conclusión de que los factores de complemento OJ y VC están correlacionados, ya que en dosis bajas parece que siguen rectas paralelas pero en dosis altas no se tiene lo mismo. También se podría comentar el error pero no logro obtener información interesante con un análisis así de superficial.
+
 # Ejercicio 6
 
 ```{r}
@@ -247,6 +261,10 @@ ggsave("./results/Ejercicio6.pdf", plot = grafico_enriquecido)
 ```
 
 El dataset contiene 5 variables numéricas, siendo la última de ellas la fecha. Las demás son medidas de caudal de dos diferentes ríos y temperatura y precipitación en la zona.
+
+De nuevo, el código es simple y solo hay que seguir las instrucciones para acabar con el gráfico final.
+
+En este gráfico podemos ver claramente la serie temporal del caudal de los dos ríos, viendo que el segundo río es más caudaloso y también viendo que los mayores picos de un río se corresponden en tiempo con los del otro.
 
 # Ejercicio 7
 
@@ -293,6 +311,10 @@ ggsave("./results/Ejercicio7.pdf", plot = grafico_modificado)
 
 El dataset es bastante grande y no resulta práctico explicar cada variable. Las variables utilizadas son el año (siendo un factor) y las temperaturas máximas y mínimas (numérico).
 
+El código es bastante simple y simplemente hay que seguir las instrucciones de la práctica.
+
+En cuanto a la interpretación de los gráficos, el más completo es el último, que ha sido modificado para tener mejor visibilidad. El grafico permite ver la distribución de temperaturas máximas en cada año, pero a simple vista no se logra sacar ninguna conclusión del gráfico, al igual que pasa con el boxplot.
+
 # Ejercicio 8
 
 ```{r}
@@ -317,7 +339,7 @@ grafico_chol <- ggplot(chol_data, aes(x = HEIGHT)) +
     linewidth = 1
   ) +
   theme_minimal()
-grafico_chol_2 <- grafico_chol_3+
+grafico_chol_2 <- grafico_chol+
   facet_grid(MORT ~ .) +
   labs(
     title = "Histograma de la variable Altura",
@@ -331,4 +353,4 @@ ggsave("./results/Ejercicio8.pdf", plot = grafico_chol_2)
 
 El código consesite en la importación del dataset a partir de la url y la creación de los dos histogramas. Cabe destacar que en el primero se han hecho ajustes en el geom_density que no son necesarios para este gráfico, sino para que luego, al separarlo por la variable mort la curva verde se ajuste bien.
 
-En cuanto añ histograma en sí simplemente muestra la distribución de alturas de las personas vivas y muertas. La distribución de vivos está más desplazada a la derecha, lo que parece indicar un aumento de la altura media en nuevas generaciones.
+En cuanto al histograma en sí simplemente muestra la distribución de alturas de las personas vivas y muertas. La distribución de vivos está más desplazada a la derecha, lo que parece indicar un aumento de la altura media en nuevas generaciones.
