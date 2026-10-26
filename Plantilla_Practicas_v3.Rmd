@@ -113,7 +113,37 @@ Si compilamos y comparamos el grafico en el que cambia la forma de los puntos y 
 
 ```{r}
 
+load("data/iris_tidy.RData")
+
+str(iris.tidy)
+
+
+iris.grafico1 <- ggplot(iris.tidy, aes(x = Species, y = Value)) +
+  geom_point()
+
+
+iris.grafico2 <- ggplot(iris.tidy, aes(x = Species, y = Value, color = Part)) +
+  geom_point()
+
+
+grafico_filas <- iris.grafico2 + facet_grid(Measure ~ .)
+
+grafico_columnas <- iris.grafico2 + facet_grid(. ~ Measure)
+
+
+iris.grafico_jitter <- ggplot(iris.tidy, aes(x = Species, y = Value, color = Part)) +
+  geom_jitter() +
+  facet_grid(Measure ~ .)
+
+
+ggsave("./results/Ejercicio3.pdf", plot = iris.grafico_jitter, width = 9, height = 6)
 ```
+
+El dataset contiene 4 variables, la que te dice que especie es, la que denota una parte de la flor, la que te indicaa si se mide el ancho o el largo de e sa parte y la medida en sí.
+
+En cuanto a la distribución de los gráficos, la distribución en filas permite visualizar mejor las dos gráficas. Por otra parte, si interesara comparar la variable value según si se mide el largo o el ancho (probablemente no sea el caso) podría ser interesante el gráfico en columnas.
+
+La diferencia ahora es que jitter hacer que ya no todos los puntos estén en la misma línea, lo que puede facilitar el percibir la densidad de los datos en algunas ocasiones con mayor facilidad.
 
 # Ejercicio 4
 
